@@ -1,0 +1,5 @@
+puppet-git-catalog (1.0.0) stretch; urgency=medium
+
+  * Initial release
+
+ -- Graham Edgecombe <gpe@grahamedgecombe.com>  Sat, 19 Jan 2019 17:37:38 +0000

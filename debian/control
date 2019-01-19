@@ -1,0 +1,20 @@
+Source: puppet-git-catalog
+Section: admin
+Priority: optional
+Maintainer: Graham Edgecombe <gpe@grahamedgecombe.com>
+Build-Depends: debhelper (>= 9), libgit2-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/grahamedgecombe/puppet-git-catalog
+Vcs-Git: https://github.com/grahamedgecombe/puppet-git-catalog.git
+Vcs-Browser: https://github.com/grahamedgecombe/puppet-git-catalog
+
+Package: puppet-git-catalog
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Submodule-aware Git-managed static Puppet catalogs
+ Provides code-id and code-content commands for Git-managed static Puppet
+ catalogs.
+ .
+ Unlike the example code-content command provided in Puppet's documentation,
+ puppet-git-catalog supports recursing into submodules, selecting the correct
+ commit every time it does so.
