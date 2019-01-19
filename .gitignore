@@ -1,0 +1,7 @@
+.*
+*~
+/code-content
+/code-id
+/puppet-git-catalog.conf
+!.git*
+!.mailmap
