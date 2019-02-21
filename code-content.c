@@ -102,9 +102,14 @@ int main(int argc, char **argv) {
                 goto tree_entry_failed;
             }
 
-            fwrite(git_blob_rawcontent(blob), (size_t) git_blob_rawsize(blob), 1, stdout);
+            if (fwrite(git_blob_rawcontent(blob), (size_t) git_blob_rawsize(blob), 1, stdout) != 1) {
+                fputs("failed to write blob\n", stderr);
+                goto fwrite_failed;
+            }
+
             status = EXIT_SUCCESS;
 
+fwrite_failed:
             git_blob_free(blob);
             break;
         } else if (entry_type == GIT_OBJ_COMMIT) {

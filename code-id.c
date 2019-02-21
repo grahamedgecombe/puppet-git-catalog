@@ -40,9 +40,14 @@ int main(int argc, char **argv) {
     }
 
     const git_oid *oid = git_reference_target(reference);
-    printf("%s\n", git_oid_tostr_s(oid));
+    if (printf("%s\n", git_oid_tostr_s(oid)) < 0) {
+        fputs("failed to write oid\n", stderr);
+        goto printf_failed;
+    }
+
     status = EXIT_SUCCESS;
 
+printf_failed:
     git_reference_free(reference);
 repo_head_failed:
     git_repository_free(repo);
