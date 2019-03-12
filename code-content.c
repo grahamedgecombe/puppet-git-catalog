@@ -102,7 +102,8 @@ int main(int argc, char **argv) {
                 goto tree_entry_failed;
             }
 
-            if (fwrite(git_blob_rawcontent(blob), (size_t) git_blob_rawsize(blob), 1, stdout) != 1) {
+            size_t len = (size_t) git_blob_rawsize(blob);
+            if (len && fwrite(git_blob_rawcontent(blob), len, 1, stdout) != 1) {
                 fputs("failed to write blob\n", stderr);
                 goto fwrite_failed;
             }
