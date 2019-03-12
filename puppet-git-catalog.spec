@@ -1,5 +1,5 @@
 Name:    puppet-git-catalog
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{?dist}
 Summary: Submodule-aware Git-managed static Puppet catalogs
 
@@ -35,6 +35,9 @@ install -Dm644 LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}-%{version}/LIC
 %{_defaultlicensedir}/%{name}-%{version}/LICENSE
 
 %changelog
+* Tue Mar 12 2019 Graham Edgecombe <gpe@grahamedgecombe.com> - 1.0.2-1
+- Fix reading an empty file with code-content
+
 * Thu Feb 21 2019 Graham Edgecombe <gpe@grahamedgecombe.com> - 1.0.1-1
 - Check for errors when writing to stdout
 
