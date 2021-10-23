@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     int status = EXIT_FAILURE;
 
     if (git_libgit2_init() < 0) {
-        fprintf(stderr, "failed to init libgit2: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to init libgit2: %s\n", git_error_last()->message);
         goto libgit2_init_failed;
     }
 
@@ -34,26 +34,26 @@ int main(int argc, char **argv) {
 
     git_repository *repo;
     if (git_repository_open(&repo, repo_path) < 0) {
-        fprintf(stderr, "failed to open repository: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to open repository: %s\n", git_error_last()->message);
         goto repo_open_failed;
     }
 
     char *code_id = argv[2];
     git_oid commit_oid;
     if (git_oid_fromstr(&commit_oid, code_id) < 0) {
-        fprintf(stderr, "invalid code-id: %s\n", giterr_last()->message);
+        fprintf(stderr, "invalid code-id: %s\n", git_error_last()->message);
         goto commit_lookup_failed;
     }
 
     git_commit *commit;
     if (git_commit_lookup(&commit, repo, &commit_oid) < 0) {
-        fprintf(stderr, "failed to lookup commit: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to lookup commit: %s\n", git_error_last()->message);
         goto commit_lookup_failed;
     }
 
     git_tree *tree;
     if (git_commit_tree(&tree, commit) < 0) {
-        fprintf(stderr, "failed to lookup tree: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to lookup tree: %s\n", git_error_last()->message);
         goto tree_lookup_failed;
     }
 
@@ -74,9 +74,9 @@ int main(int argc, char **argv) {
         }
 
         const git_oid *entry_oid = git_tree_entry_id(entry);
-        git_otype entry_type = git_tree_entry_type(entry);
+        git_object_t entry_type = git_tree_entry_type(entry);
 
-        if (entry_type == GIT_OBJ_TREE) {
+        if (entry_type == GIT_OBJECT_TREE) {
             if (!path_next) {
                 fputs("entry is not a file\n", stderr);
                 goto tree_entry_failed;
@@ -84,13 +84,13 @@ int main(int argc, char **argv) {
 
             git_tree *next_tree;
             if (git_tree_lookup(&next_tree, repo, entry_oid) < 0) {
-                fprintf(stderr, "failed to lookup tree: %s\n", giterr_last()->message);
+                fprintf(stderr, "failed to lookup tree: %s\n", git_error_last()->message);
                 goto tree_entry_failed;
             }
 
             git_tree_free(tree);
             tree = next_tree;
-        } else if (entry_type == GIT_OBJ_BLOB) {
+        } else if (entry_type == GIT_OBJECT_BLOB) {
             if (path_next) {
                 fputs("entry is not a directory\n", stderr);
                 goto tree_entry_failed;
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
 
             git_blob *blob;
             if (git_blob_lookup(&blob, repo, entry_oid) < 0) {
-                fprintf(stderr, "failed to lookup blob: %s\n", giterr_last()->message);
+                fprintf(stderr, "failed to lookup blob: %s\n", git_error_last()->message);
                 goto tree_entry_failed;
             }
 
@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
 fwrite_failed:
             git_blob_free(blob);
             break;
-        } else if (entry_type == GIT_OBJ_COMMIT) {
+        } else if (entry_type == GIT_OBJECT_COMMIT) {
             if (!path_next) {
                 fputs("entry is not a file\n", stderr);
                 goto tree_entry_failed;
@@ -123,25 +123,25 @@ fwrite_failed:
 
             git_submodule *submodule;
             if (git_submodule_lookup(&submodule, repo, submodule_path) < 0) {
-                fprintf(stderr, "failed to lookup submodule: %s\n", giterr_last()->message);
+                fprintf(stderr, "failed to lookup submodule: %s\n", git_error_last()->message);
                 goto submodule_lookup_failed;
             }
 
             git_repository *next_repo;
             if (git_submodule_open(&next_repo, submodule) < 0) {
-                fprintf(stderr, "failed to open submodule: %s\n", giterr_last()->message);
+                fprintf(stderr, "failed to open submodule: %s\n", git_error_last()->message);
                 goto submodule_open_failed;
             }
 
             git_commit *next_commit;
             if (git_commit_lookup(&next_commit, next_repo, entry_oid) < 0) {
-                fprintf(stderr, "failed to lookup commit: %s\n", giterr_last()->message);
+                fprintf(stderr, "failed to lookup commit: %s\n", git_error_last()->message);
                 goto submodule_commit_lookup_failed;
             }
 
             git_tree *next_tree;
             if (git_commit_tree(&next_tree, next_commit) < 0) {
-                fprintf(stderr, "failed to lookup tree: %s\n", giterr_last()->message);
+                fprintf(stderr, "failed to lookup tree: %s\n", git_error_last()->message);
                 goto submodule_tree_lookup_failed;
             }
 

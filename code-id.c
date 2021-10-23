@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     int status = EXIT_FAILURE;
 
     if (git_libgit2_init() < 0) {
-        fprintf(stderr, "failed to init libgit2: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to init libgit2: %s\n", git_error_last()->message);
         goto libgit2_init_failed;
     }
 
@@ -29,13 +29,13 @@ int main(int argc, char **argv) {
 
     git_repository *repo;
     if (git_repository_open(&repo, repo_path) < 0) {
-        fprintf(stderr, "failed to open repository: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to open repository: %s\n", git_error_last()->message);
         goto repo_open_failed;
     }
 
     git_reference *reference;
     if (git_repository_head(&reference, repo) < 0) {
-        fprintf(stderr, "failed to get repository head: %s\n", giterr_last()->message);
+        fprintf(stderr, "failed to get repository head: %s\n", git_error_last()->message);
         goto repo_head_failed;
     }
 

@@ -7,7 +7,7 @@ License: ISC
 URL:     https://github.com/grahamedgecombe/puppet-git-catalog
 Source0: https://github.com/grahamedgecombe/puppet-git-catalog/archive/v%{version}.tar.gz
 
-BuildRequires: libgit2-devel
+BuildRequires: libgit2-devel >= 1.0.0
 BuildRequires: m4
 
 %description
