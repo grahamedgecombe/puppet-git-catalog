@@ -20,10 +20,10 @@ uninstall:
 	$(RM) $(DESTDIR)/etc/puppetlabs/puppetserver/conf.d/puppet-git-catalog.conf
 
 code-content: code-content.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -std=c99 -D_GNU_SOURCE -lgit2 -o $@ $<
+	$(CC) $(CFLAGS) $(LDFLAGS) -std=c99 -D_GNU_SOURCE -o $@ $< -lgit2
 
 code-id: code-id.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -std=c99 -D_GNU_SOURCE -lgit2 -o $@ $<
+	$(CC) $(CFLAGS) $(LDFLAGS) -std=c99 -D_GNU_SOURCE -o $@ $< -lgit2
 
 puppet-git-catalog.conf: puppet-git-catalog.conf.m4
 	m4 -DLIBEXECDIR=$(LIBEXECDIR) $< > $@
