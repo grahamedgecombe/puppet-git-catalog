@@ -38,4 +38,4 @@ information and licensing terms.
 
 [apt-repo]: https://www.grahamedgecombe.com/apt-repository
 [libgit2]: https://libgit2.org/
-[static-catalogs]: https://puppet.com/docs/puppet/6.1/static_catalogs.html
+[static-catalogs]: https://puppet.com/docs/puppet/7/static-catalogs.html
