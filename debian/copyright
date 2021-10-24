@@ -3,7 +3,7 @@ Upstream-Name: puppet-git-catalog
 Source: https://github.com/grahamedgecombe/puppet-git-catalog
 
 Files: *
-Copyright: 2019 Graham Edgecombe <gpe@grahamedgecombe.com>
+Copyright: 2019, 2021 Graham Edgecombe <gpe@grahamedgecombe.com>
 License: ISC
 
 License: ISC
