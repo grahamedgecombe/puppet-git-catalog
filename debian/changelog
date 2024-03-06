@@ -1,3 +1,9 @@
+puppet-git-catalog (2.0.0) bookworm; urgency=medium
+
+  * Fix compatibility with v1 of libgit2
+
+ -- Graham Edgecombe <gpe@grahamedgecombe.com>  Wed, 06 Mar 2024 17:23:04 +0000
+
 puppet-git-catalog (1.0.2) stretch; urgency=medium
 
   * Fix reading an empty file with code-content
